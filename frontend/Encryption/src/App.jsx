@@ -1,7 +1,11 @@
 export default function App() {
   return (
-    <h1 className="text-center text-3xl">
-      ENCRYPTION
-    </h1>
+    <>
+     <div>
+        <div className="text-center text-3xl bold underline">
+          <h1>Encryption</h1>
+        </div>
+     </div>
+    </>
   )
 }
