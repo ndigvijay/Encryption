@@ -1,0 +1,3 @@
+# Hiding File in an Image
+
+This project allows it's users to hide encrypted files inside an image. The project has a frontend where the user can upload a file and an image. After uploading the encryption and embedding takes place after which the user will be able to download the new image which contains the encrypted file embedded inside it. The user is even provided with an encryption key which is used the encrypt and decrypt the file. This project even inclues the feature of extracting the file from an image using the same encryption key. It is a highly useful project as it allows users to share encrypted files embedded in an image.
