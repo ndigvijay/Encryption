@@ -2,4 +2,6 @@ alpine
 node
 python
 npm
-
+flask
+Flask-Cors
+pymongo
