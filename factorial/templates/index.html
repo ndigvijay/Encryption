@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factorial Calculator</title>
     <script>
         async function calculateFactorial() {
             const number = document.getElementById('number').value;
-            const response = await fetch('http://127.0.0.1:5000/factorial', {
+            const response = await fetch('/factorial', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,10 +23,12 @@
         }
     </script>
 </head>
+
 <body>
     <h1>Factorial Calculator</h1>
     <input type="number" id="number" placeholder="Enter a number" />
     <button onclick="calculateFactorial()">Calculate</button>
     <p id="output"></p>
 </body>
+
 </html>

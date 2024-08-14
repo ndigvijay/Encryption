@@ -1,7 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from math import factorial
 
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/factorial', methods=['POST'])
 def calculate_factorial():
@@ -14,9 +18,9 @@ def calculate_factorial():
         x = {'factorial':result}
         return x, 200
 
-    except: 
+    except Exception as e: 
 
-        error_msg = "random error occured" 
+        error_msg = str(e)
         err = {'error' : error_msg}
         return jsonify(err), 400
 
