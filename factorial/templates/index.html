@@ -3,22 +3,29 @@
 <head>
     <title>Factorial Calculator</title>
     <script>
-        async function calculateFactorial() {
+        async function calculateFactorial() 
+        {
             const number = document.getElementById('number').value;
-            const response = await fetch('/factorial', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ number })
-            });
 
-            if (response.ok) {
+            const response = await fetch('/factorial',
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ number })
+                });
+
+            if (response.status == 200) 
+            {
                 const result = await response.json();
-                document.getElementById('output').innerText = 'Factorial: ' + result.factorial;
-            } else {
+                document.getElementById('output').innerText = 'Factorial : ' + result.factorial;
+            } 
+            else 
+            {
                 const result = await response.json();
-                document.getElementById('output').innerText = 'Error: ' + result.error;
+                document.getElementById('output').innerText = 'Error : ' + result.error;
             }
         }
     </script>
