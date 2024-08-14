@@ -5,6 +5,7 @@ data = {'number': number}
 
 response = requests.post(json=data, url='http://127.0.0.1:5000/factorial')
 result_dict = response.json()
+# print(response.content)
 
 
 if response.status_code == 200:

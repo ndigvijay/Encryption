@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>Image Upload and Grayscale Conversion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Upload an Image to Convert to Grayscale</h1>
+
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="image-file" name="file" accept="image/*" required>
+        <button type="submit">Upload and Convert</button>
+    </form>
+    
+    <div id="result" style="display: none;">
+        <h2>Grayscale Image</h2>
+        <img id="grayscale-image" src="#" alt="Grayscale Image" style="max-width: 100%; height: auto;">
+        <br>
+        <a id="download-link" href="#" download="grayscale_image.png"><button>download image</button></a>
+    </div>
+    
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('file', document.getElementById('image-file').files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('grayscale-image').src = url;
+                    document.getElementById('download-link').href = url;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing the image.');
+                });
+        });
+    </script>
+</body>
+
+</html>
