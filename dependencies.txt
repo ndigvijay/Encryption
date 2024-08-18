@@ -5,3 +5,5 @@ npm
 flask
 Flask-Cors
 pymongo
+cryptography
+
