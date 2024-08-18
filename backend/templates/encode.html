@@ -1,80 +1,74 @@
 <html>
-
 <head>
-    <title>Encode</title>
+    <title>Encode File</title>
 </head>
-
 <body>
-    <h1>Upload an Image and File</h1><br>
 
-    <form id="upload-form" enctype="multipart/form-data">
-        <input type="file" id="image" name="image" accept="image/*" required><br>
-        <input type="file" id="file" name="file" accept="*" required><br>
-        <button type="submit">Upload</button><br>
+    <h1>Encode a File into an Image</h1>
+    
+    <form id="encodeForm" method="POST" enctype="multipart/form-data">
+
+        <label for="img_file">Select Image :</label>
+        <input type="file" id="img_file" name="img_file" accept="image/*" required><br><br>
+
+        <label for="zip_file">Select Zip File :</label>
+        <input type="file" id="zip_file" name="zip_file" required><br><br>
+
+        <label for="password">Password :</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit" onclick="handleEncode(event)">Encode</button>
+
     </form>
 
-    <div id="result" style="display: none;">
-        <p>Upload successful!</p>
-    </div>
+    <br>
+    <!-- <a id="download-link" href="#" style="display:none;" download="#"><button>Download Image</button></a> -->
+    <a id="download-link" href="#" style="display:none; width: fit-content;" download="#"><button>Download Image</button></a>
+    
 
     <script>
-        async function calculateFactorial() 
-        {
-            const number = document.getElementById('number').value;
+            async function handleEncode(event) 
+            {
+                event.preventDefault();
 
-            const response = await fetch('/factorial',
+                try 
                 {
-                    method: 'POST',
-                    headers:
+
+                    var formData = new FormData(document.getElementById('encodeForm'));
+                    
+                    let response = await fetch('/encodefile', 
                     {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ number })
-                });
-
-            if (response.status == 200) 
-            {
-                const result = await response.json();
-                document.getElementById('output').innerText = 'Factorial : ' + result.factorial;
-            } 
-            else 
-            {
-                const result = await response.json();
-                document.getElementById('output').innerText = 'Error : ' + result.error;
-            }
-        }
-
-
-
-
-        document.getElementById('upload-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const formData = new FormData();
-            formData.append('image', document.getElementById('image').files[0]);
-            formData.append('file', document.getElementById('file').files[0]);
-
-            
-            fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    if (!response.ok) {
+                        method: 'POST',
+                        body: formData
+                        
+                    });
+                    
+                    if (!response.ok) 
+                    {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data); // Handle the server's response
-                    document.getElementById('result').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while uploading the files.');
-                });
-        });
-    </script>
-</body>
+                    
+                    let blob = await response.blob();
+                    var url = URL.createObjectURL(blob);
+                    
+                    var downloadLink = document.getElementById('downloadLink');
+                    
+                    document.getElementById('download-link').style.display = 'block';
+                    document.getElementById('download-link').href = url;
 
+
+                    var fileInput = document.getElementById('img_file');
+                    var file = fileInput.files[0];
+                    document.getElementById('download-link').download = file.name;
+    
+                } 
+                catch (error) 
+                {
+                    console.error('Error:', error);
+                }
+            }
+    
+    </script>
+    
+</body>
 </html>
