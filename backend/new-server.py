@@ -2,18 +2,22 @@ from flask import Flask, request, send_file, render_template, jsonify
 from functions import encrypt_and_embed_file, extract_and_decrypt_file
 from io import BytesIO
 import base64
+from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def encode_html():
-    return render_template('encode.html')
+CORS(app)
+# app = Flask(__name__)
 
 
-@app.route('/decode')
-def decode_html():
-    return render_template('decode.html')
+# @app.route('/')
+# def encode_html():
+#     return render_template('encode.html')
+#
+# @app.route('/decode')
+# def decode_html():
+#     return render_template('decode.html')
 
 
 @app.route('/encodefile', methods=['POST'])

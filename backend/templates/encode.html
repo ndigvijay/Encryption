@@ -5,7 +5,7 @@
 <body>
 
     <h1>Encode a File into an Image</h1>
-    
+
     <form id="encodeForm" method="POST" enctype="multipart/form-data">
 
         <label for="img_file">Select Image :</label>
@@ -24,35 +24,35 @@
     <br>
     <!-- <a id="download-link" href="#" style="display:none;" download="#"><button>Download Image</button></a> -->
     <a id="download-link" href="#" style="display:none; width: fit-content;" download="#"><button>Download Image</button></a>
-    
+
 
     <script>
-            async function handleEncode(event) 
+            async function handleEncode(event)
             {
                 event.preventDefault();
 
-                try 
+                try
                 {
 
                     var formData = new FormData(document.getElementById('encodeForm'));
-                    
-                    let response = await fetch('/encodefile', 
+
+                    let response = await fetch('/encodefile',
                     {
                         method: 'POST',
                         body: formData
-                        
+
                     });
-                    
-                    if (!response.ok) 
+
+                    if (!response.ok)
                     {
                         throw new Error('Network response was not ok');
                     }
-                    
+
                     let blob = await response.blob();
                     var url = URL.createObjectURL(blob);
-                    
+
                     var downloadLink = document.getElementById('downloadLink');
-                    
+
                     document.getElementById('download-link').style.display = 'block';
                     document.getElementById('download-link').href = url;
 
@@ -60,15 +60,15 @@
                     var fileInput = document.getElementById('img_file');
                     var file = fileInput.files[0];
                     document.getElementById('download-link').download = file.name;
-    
-                } 
-                catch (error) 
+
+                }
+                catch (error)
                 {
                     console.error('Error:', error);
                 }
             }
-    
+
     </script>
-    
+
 </body>
 </html>
